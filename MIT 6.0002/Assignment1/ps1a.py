@@ -13,19 +13,28 @@ import time
 
 # Problem 1
 def load_cows(filename):
-    """
-    Read the contents of the given file.  Assumes the file contents contain
-    data in the form of comma-separated cow name, weight pairs, and return a
-    dictionary containing cow names as keys and corresponding weights as values.
+  """
+  Read the contents of the given file.  Assumes the file contents contain
+  data in the form of comma-separated cow name, weight pairs, and return a
+  dictionary containing cow names as keys and corresponding weights as values.
 
-    Parameters:
-    filename - the name of the data file as a string
+  Parameters:
+  filename - the name of the data file as a string
 
-    Returns:
-    a dictionary of cow name (string), weight (int) pairs
-    """
-    # TODO: Your code here
-    pass
+  Returns:
+  a dictionary of cow name (string), weight (int) pairs
+  """
+  # TODO: Your code here
+  try:
+    with open(filename,'r') as f:
+        l = list(f.read().split("\n"))
+    cows = {}
+    for i in l:
+      key,val = i.split(',')
+      cows[key]=int(val)
+  except FileNotFoundError:
+    print({filename}," not found ")
+  return cows
 
 # Problem 2
 def greedy_cow_transport(cows,limit=10):
@@ -51,6 +60,21 @@ def greedy_cow_transport(cows,limit=10):
     trips
     """
     # TODO: Your code here
+    sorted_cows = sorted(cows.items(),key=lambda kv: kv[1],reverse=True)
+    max = 10
+    output_list = []
+    while sorted_items:
+      sum = max
+      l = []
+      for j in range(len(sorted_items)):
+        if sum==0:
+          break
+        if sorted_items[j][1]<=sum:
+          l.append(sorted_items[j])
+          sum -= sorted_items[j][1]
+      output_list.append(list(l))
+      for j in l:
+        sorted_items.remove(j)
     pass
 
 # Problem 3
@@ -76,6 +100,7 @@ def brute_force_cow_transport(cows,limit=10):
     trips
     """
     # TODO: Your code here
+                         
     pass
         
 # Problem 4
